@@ -37,15 +37,13 @@ app.use(passport.session());
 app.use(express.json());
 app.use(cors());
 // app.use(express.urlencoded({extended: true}));
-// app.use(express.static(path.join(__dirname, 'build')));
+
 
 app.use('/auth', authRoutes);
 app.use('/api/posts', posts);
 app.use('/api/admin', adminRoute);
 app.use('/api/posts' , comments);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
