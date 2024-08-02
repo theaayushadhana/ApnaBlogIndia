@@ -37,7 +37,7 @@ app.use(passport.session());
 app.use(express.json());
 app.use(cors());
 // app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/auth', authRoutes);
 app.use('/api/posts', posts);
