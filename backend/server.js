@@ -42,6 +42,9 @@ app.use('/auth', authRoutes);
 app.use('/api/posts', posts);
 app.use('/api/admin', adminRoute);
 app.use('/api/posts' , comments);
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
 
 
 mongoose.connect(process.env.MONGO_URI)
