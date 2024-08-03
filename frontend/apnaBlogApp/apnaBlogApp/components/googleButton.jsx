@@ -6,6 +6,7 @@ const GoogleAuthButton = () => (
   <Button
     variant="contained"
     color="primary"
+    // 4173 is used instead of 5173
     href="http://localhost:5000/auth/google"
     startIcon={<img src={Google} alt="Google" style={{ width: 20, height: 20 }} />}
     sx={{
