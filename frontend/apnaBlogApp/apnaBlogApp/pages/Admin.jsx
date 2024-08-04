@@ -32,7 +32,7 @@ const Admin = () => {
         imageUrls, // Send image URLs to the backend
       };
 
-      await axios.post('http://localhost:5000/api/posts', postData, {
+      await axios.post('http://apnablogapp.com/api/posts', postData, {
         headers: {
           'Content-Type': 'application/json'
         },
