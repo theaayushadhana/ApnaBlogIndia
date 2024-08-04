@@ -1,3 +1,6 @@
+
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from './models/User.js';
 import dotenv from 'dotenv';
 
@@ -7,9 +10,8 @@ dotenv.config();
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  // change in port = 5005
-//   callbackURL: 'http://localhost:5000/auth/google/callback'
-callbackURL: 'http://apnablogapp.com/auth/google/callback'
+  // callbackURL: 'http://localhost:5000/auth/google/callback'
+  callbackURL: 'http://apnablogapp.com/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   const existingUser = await User.findOne({ googleId: profile.id });
 
@@ -37,5 +39,4 @@ passport.deserializeUser((id, done) => {
     done(null, user);
   });
 });
-
 

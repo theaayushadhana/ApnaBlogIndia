@@ -12,7 +12,7 @@ router.get('/google/callback', (req, res, next) => {
   console.log('Google callback hit');
   next();
 }, passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-  res.redirect('http://localhost:5173/home');
+  res.redirect('http://apnablogapp.com/auth/google/callback');
 });
 
 router.get('/logout', (req, res) => {
@@ -21,7 +21,8 @@ router.get('/logout', (req, res) => {
       return next(err);
     }
     req.session = null;
-    res.redirect('http://localhost:5000');
+    // res.redirect('http://localhost:5000');
+    res.redirect('http://apnablogapp.com')
   });
 });
 

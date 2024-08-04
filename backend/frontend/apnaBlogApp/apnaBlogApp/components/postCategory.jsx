@@ -29,7 +29,7 @@ const PostsByCategory = () => {
     const fetchPostsByCategory = async () => {
       try {
         // used 4173 instead of 5000
-        const response = await axios.get(`https://api.apnablog.com/api/posts/category/${category}`);
+        const response = await axios.get(`http://localhost:5000/api/posts/category/${category}`);
         setPosts(response.data);
         setLoading(false);
       } catch (error) {
