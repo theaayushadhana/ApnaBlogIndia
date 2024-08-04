@@ -44,8 +44,8 @@ const HomePage = () => {
   const navigate = useNavigate(); // Use useNavigate correctly
 
   useEffect(() => {
-    // Fetch posts from the backend
-    axios.get('http://localhost:5000/api/posts')
+    
+    axios.get('http://api.apnablog.com/api/posts')
       .then((response) => {
         setPosts(response.data);
         setLoading(false);

@@ -15,6 +15,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true, // Allow network access
-    port: 4173, // Ensure this matches the port you're using
+    port: 5173, // Ensure this matches the port you're using
   },
 })

@@ -22,7 +22,8 @@ const App = () => {
  
   useEffect(() => {
     console.log('Fetching current user');
-    axios.get('http://localhost:5000/auth/current_user', { withCredentials: true })
+    // axios.get('http://localhost:5000/auth/current_user', { withCredentials: true })
+    axios.get('https://api.apnablog.com/auth/current_user', { withCredentials: true })
       .then(res => {
         console.log('User data:', res.data);
         setUser(res.data);

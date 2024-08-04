@@ -6,7 +6,9 @@ const GoogleAuthButton = () => (
   <Button
     variant="contained"
     color="primary"
-    href="http://localhost:5000/auth/google"
+    // 5005 is used instead of 5173
+    // href="http://localhost:5000/auth/google"
+    href="http://apnablogapp.com/auth/google"
     startIcon={<img src={Google} alt="Google" style={{ width: 20, height: 20 }} />}
     sx={{
       display: 'flex',
