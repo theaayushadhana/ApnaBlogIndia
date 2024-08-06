@@ -45,7 +45,8 @@ const HomePage = () => {
 
   useEffect(() => {
     
-    axios.get('http://api.apnablog.com/api/posts')
+    axios.get('https://api.apnablogapp.com/api/posts')
+    // https://api.apnablogapp.com/api/posts
       .then((response) => {
         setPosts(response.data);
         setLoading(false);

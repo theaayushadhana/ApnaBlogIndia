@@ -10,7 +10,9 @@ const postList = () => {
     useEffect(() => {
        const fetchPost = async() => {
         try {
-            const response = await axios.get('http://apnablogapp.com/api/posts');
+            // const response = await axios.get('https://apnablogapp.com/api/posts');
+            const response = await axios.get('https://api.apnablogapp.com/api/posts');
+            // https://api.apnablogapp.com/api/posts
             console.log(response.data);
             setPosts(response.data);
             setLoading(false);
