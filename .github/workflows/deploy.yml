@@ -3,11 +3,7 @@ name: Deploy to VPS
 on:
   push:
     branches:
-<<<<<<< HEAD
       - main  # Replace with your branch name if different
-=======
-      - main  # Change this if you're using a different branch
->>>>>>> 62acd91 (Add deployment workflow)
 
 jobs:
   deploy:
@@ -20,44 +16,27 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-<<<<<<< HEAD
           node-version: '14'  # Replace with your Node.js version
-=======
-          node-version: '14'  # Adjust if necessary
->>>>>>> 62acd91 (Add deployment workflow)
 
       - name: Install dependencies
+        working-directory: frontend  # Ensure you're in the correct directory
         run: npm install
 
       - name: Build the application
-<<<<<<< HEAD
+        working-directory: frontend  # Ensure you're in the correct directory
         run: npm run build  # Replace with your build command
-=======
-        run: npm run build  # Adjust if necessary
->>>>>>> 62acd91 (Add deployment workflow)
 
       - name: Deploy to VPS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-<<<<<<< HEAD
-          # Add SSH key
-=======
           # Set up SSH key
->>>>>>> 62acd91 (Add deployment workflow)
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-<<<<<<< HEAD
-          # Add your VPS to known hosts
-          ssh-keyscan -H 212.38.94.134 >> ~/.ssh/known_hosts
-
-          # Deploy files
-=======
           # Add the VPS to known hosts
           ssh-keyscan -H 212.38.94.134 >> ~/.ssh/known_hosts
 
           # Deploy files using rsync
->>>>>>> 62acd91 (Add deployment workflow)
-          rsync -avz --delete ./build/ root@212.38.94.134:/path/to/your/deployment/directory
+          rsync -avz --delete ./frontend/build/ root@212.38.94.134:/path/to/your/deployment/directory
