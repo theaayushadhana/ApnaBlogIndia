@@ -1,0 +1,40 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name if different
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Replace with your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build  # Replace with your build command
+
+      - name: Deploy to VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Add SSH key
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # Add your VPS to known hosts
+          ssh-keyscan -H 212.38.94.134 >> ~/.ssh/known_hosts
+
+          # Deploy files
+          rsync -avz --delete ./build/ root@212.38.94.134:/path/to/your/deployment/directory
