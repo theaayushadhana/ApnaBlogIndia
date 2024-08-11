@@ -24,9 +24,10 @@ app.use(cors({
 }));
 
 app.use(session({
-  secret: process.env.COOKIE_KEY,
-  resave: false,
-  saveUninitialized: false,
+  secret: process.env.SESSION_SECRET || 'AAYUSHADHANAISADEVELOPER',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === 'production' },
   store: MongoStore.create({
     mongoUrl: process.env.MONGO_URI,
     ttl: 14 * 24 * 60 * 60,
@@ -36,13 +37,14 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session());
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 
 app.use('/auth', authRoutes);
 app.use('/api/posts', posts);
 app.use('/api/admin', adminRoute);
 app.use('/api/posts' , comments);
+
 app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
