@@ -13,18 +13,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up SSH
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
-      run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@212.38.94.134 'echo Setup Completed'
-
-    - name: Run deployment script
-      run: |
-        chmod +x deploy.sh
-        ./deploy.sh
+   - name: Set up SSH
+  env:
+    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+  run: |
+    mkdir -p ~/.ssh
+    echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa
+    echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    ssh -o StrictHostKeyChecking=no root@212.38.94.134 'echo Setup Completed'
