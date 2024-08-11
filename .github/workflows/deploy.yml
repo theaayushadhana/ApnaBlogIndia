@@ -22,11 +22,8 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@212.38.94.134 'echo Setup Completed'
 
-    - name: Verify SSH Connectivity
-      run: |
-        ssh -o StrictHostKeyChecking=no root@212.38.94.134 'echo Connected'
-    
     - name: Run deployment script
       run: |
         chmod +x deploy.sh
