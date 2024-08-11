@@ -1,42 +1,29 @@
-name: Deploy to VPS
+name: Deploy
 
 on:
   push:
     branches:
-      - main  # Replace with your branch name if different
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Replace with your Node.js version
+    - name: Set up SSH
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
-      - name: Install dependencies
-        working-directory: frontend  # Ensure you're in the correct directory
-        run: npm install
-
-      - name: Build the application
-        working-directory: frontend  # Ensure you're in the correct directory
-        run: npm run build  # Replace with your build command
-
-      - name: Deploy to VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          # Set up SSH key
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-          # Add the VPS to known hosts
-          ssh-keyscan -H 212.38.94.134 >> ~/.ssh/known_hosts
-
-          # Deploy files using rsync
-          rsync -avz --delete ./frontend/build/ root@212.38.94.134:/path/to/your/deployment/directory
+    - name: Run deployment script
+      run: |
+        chmod +x deploy.sh
+        ./deploy.sh
