@@ -33,7 +33,8 @@ const PostDetail = () => {
   const [relatedPosts, setRelatedPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://apnablogapp.com/api/posts/${slug}`)
+    // https://api.apnablogapp.com/api/posts/${slug}
+    axios.get(`https://api.apnablogapp.com/api/posts/${slug}`)
       .then(response => {
         setPost(response.data);
         setComments(response.data.comments || []);
@@ -42,7 +43,7 @@ const PostDetail = () => {
         console.error('Error fetching post:', error);
       });
 
-    axios.get(`https://apnablogapp.com/api/posts/related/${slug}`)
+    axios.get(`https://api.apnablogapp.com/api/posts/related/${slug}`)
       .then(response => {
         setRelatedPosts(response.data);
       })
