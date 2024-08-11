@@ -18,8 +18,35 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
       run: |
+        # Create the .ssh directory if it doesn't exist
         mkdir -p ~/.ssh
+        
+        # Decode and save the private key
         echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        
+        # Add the known hosts
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        
+        # Test SSH connection
         ssh -o StrictHostKeyChecking=no root@212.38.94.134 'echo Setup Completed'
+
+    - name: Deploy application
+      run: |
+        # SSH into the server and deploy
+        ssh -o StrictHostKeyChecking=no root@212.38.94.134 << 'ENDSSH'
+          # Navigate to the application directory
+          cd /root/ApnaBlogApp2
+
+          # Pull the latest code from the GitHub repository
+          git pull origin main
+
+          # Install dependencies
+          npm install
+
+          # Build the frontend (if applicable)
+          npm run build
+
+          # Restart the application processes
+          pm2 restart all
+        ENDSSH
