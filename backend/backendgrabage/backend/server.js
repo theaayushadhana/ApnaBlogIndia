@@ -24,9 +24,10 @@ app.use(cors({
 }));
 
 app.use(session({
-  secret: process.env.COOKIE_KEY,
+  secret: process.env.SESSION_SECRET || 'AAYUSHADHANAISADEVELOPER',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === 'production' },
   store: MongoStore.create({
     mongoUrl: process.env.MONGO_URI,
     ttl: 14 * 24 * 60 * 60,
@@ -36,7 +37,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session());
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 
 app.use('/auth', authRoutes);
