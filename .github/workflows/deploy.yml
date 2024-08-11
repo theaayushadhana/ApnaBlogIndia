@@ -22,11 +22,4 @@ jobs:
         echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-
-        # Test SSH connection
         ssh -o StrictHostKeyChecking=no root@212.38.94.134 'echo Setup Completed'
-    
-    - name: Deploy Application
-      run: |
-        chmod +x deploy.sh
-        ./deploy.sh
