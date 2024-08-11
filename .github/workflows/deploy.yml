@@ -18,13 +18,25 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
       run: |
+        # Create .ssh directory
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+
+        # Write the SSH private key to id_rsa
+        echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
+
+        # Set correct permissions for the private key
         chmod 600 ~/.ssh/id_rsa
+
+        # Write the known hosts
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+        # Test SSH connection
         ssh -o StrictHostKeyChecking=no root@212.38.94.134 'echo Setup Completed'
 
-    - name: Deploy
+    - name: Deploy Application
       run: |
+        # Ensure deploy.sh is executable
         chmod +x deploy.sh
+
+        # Run the deploy script
         ./deploy.sh
