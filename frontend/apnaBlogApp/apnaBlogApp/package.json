@@ -6,16 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "PORT=5173 npm run dev",
+    "start": "vite preview", 
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "deploy": "vite deploy"
+    "deploy": "npm run build && npm run start"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.5",
+    "@mui/system": "^5.16.6",
     "@nextui-org/react": "^2.4.2",
     "axios": "^1.7.2",
     "dompurify": "^3.1.6",
