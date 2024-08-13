@@ -81,7 +81,7 @@ const Admin = () => {
           Create Post
         </Button>
       </form>
-      <p>Only admin can post on ApnaBlogApp. If you want to write post for you then , mail us at at developeraayush145@gmail.com </p>
+      <p>Only admin aayush can post on ApnaBlogApp. If you want to write post for you then , mail us at at developeraayush145@gmail.com </p>
     </Container>
   );
 };
