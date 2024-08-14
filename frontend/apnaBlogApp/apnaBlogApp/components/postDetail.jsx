@@ -33,8 +33,8 @@ const PostDetail = () => {
 
   useEffect(() => {
     // Fetch the post
-    // axios.get(`https://api.apnablogapp.com/api/posts/${slug}`)
-    axios.get(`https://api.apnablogapp.com/api/posts/how-to-create-a-insta-post-like-this-}`)
+    axios.get(`https://api.apnablogapp.com/api/posts/${slug}`)
+    
       .then(response => {
         console.log('Post data:', response.data); // Log post data
         setPost(response.data);
